@@ -1,0 +1,140 @@
+" Micheal's .vimrc
+" ============================================
+
+" Cosmetics
+" ============================================
+
+set number " show line numbers
+set ruler " show column number in statusbar
+syntax enable " syntax highlighting
+" set cursorline " highlight the line on which the cursor is
+set showmatch " highlight matching [{()}]
+set incsearch " search as characters are entered
+set hlsearch " highlight matches
+set list " show invisibles
+set listchars=eol:¬,trail:- " set invisibles to show
+set colorcolumn=80,73,47
+set showcmd
+let showedited = v:true " include + in tabline for edited buffers
+let showtabnr = v:true " show tab number in tabline
+let usecustomlabels = v:true
+colorscheme lollipop
+
+" Behaviors
+" ============================================
+
+set mouse=a " allow mouse to place cursor / select text
+set tabstop=4 " tabs appear to be 4 long
+set expandtab " tabs are spaces
+set softtabstop=4 " soft tabs are 4 long
+set shiftwidth=4 " autoindent only does 4 spaces instead of 8
+set smartindent " does the right thing?
+set lazyredraw " redraw only when we need to
+filetype indent on " filetype detection and related indentation
+set hidden " allows navigating away from a modified buffer
+set backspace=2 " makes backspace behave normally in 8.1
+set undofile " keeps track of changes across loading of files
+set nojoinspaces " use one space instead of two after periods
+
+" Folding
+" ============================================
+
+" set foldmethod=syntax " enable code folding based on syntax
+" set nofoldenable " ? start with nothing folded
+set foldmethod=manual " enable manual code folding
+
+augroup AutoSaveFolds " automatically save and load folds
+  autocmd!
+  autocmd BufWinLeave * silent! mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
+" Auto Commands
+" ============================================
+
+" autocmd VimLeave * call SaveSess()
+" autocmd VimEnter * nested call RestoreSess()
+
+" Mappings
+" ============================================
+
+""" Leader
+let mapleader="," " for <Leader>
+inoremap <Leader>jk <ESC>
+""" :new vvv
+nnoremap <C-W><C-N> <C-W><C-N><C-W><C-X><C-W><C-J>
+""" :split vvv
+nnoremap <C-W><C-S> <C-W><C-S><C-W><C-J>
+""" :vsplit vvv
+nnoremap <C-W><C-V> <C-W><C-V><C-W><C-L>
+" nnoremap <Leader>S :mksession " vvv
+nnoremap <Leader>s :mksession!<CR>
+""" recolors entire buffer vvv
+nnoremap <silent> <F12> :syntax sync fromstart<CR>
+""" In-Buffer Navigation vvv
+nnoremap <Leader>n <C-D>
+nnoremap <Leader>u <C-U>
+""" Inter-Buffer Navigation vvv
+nnoremap <silent> <C-B> :bn<CR>
+nnoremap <silent> <C-F> :bp<CR>
+""" Window Navigation vvv
+nnoremap <Leader>h <C-W>h
+nnoremap <Leader>j <C-W>j
+nnoremap <Leader>k <C-W>k
+nnoremap <Leader>l <C-W>l
+""" Tab Navigation
+nnoremap <Right> gt
+nnoremap <Left> gT
+nnoremap <Leader>t :%s/\s\+$//<CR>:noh<CR>
+nnoremap <Leader>r :source $MYVIMRC<CR>
+nnoremap <Leader>e :vsplit $MYVIMRC<CR><C-W><C-X><C-W><C-L>
+nnoremap <Leader>h :noh<CR>
+nnoremap <Leader>c :colorscheme slate<CR>
+
+
+inoremap <Leader>em —
+inoremap <Leader>en –
+inoremap <Leader>r' ’
+inoremap <Leader>l' ‘
+inoremap <Leader>r" ”
+inoremap <Leader>l" “
+inoremap <Leader>check ✓
+inoremap <Leader>pi π
+
+
+" Abbreviations
+" ============================================
+
+iabbrev hte the
+iabbrev teh the
+
+" Functions
+" ============================================
+
+
+function! SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+
+function! SaveSess()
+    execute 'mksession! ' . getcwd() . '/.session.vim'
+endfunction
+
+
+function! RestoreSess()
+    if filereadable(getcwd() . '/.session.vim')
+        execute 'so ' . getcwd() . '/.session.vim'
+        if bufexists(1)
+            for l in range(1, bufnr('$'))
+                if bufwinnr(l) == -1
+                    exec 'sbuffer ' . l
+                endif
+            endfor
+        endif
+    endif
+endfunction
+

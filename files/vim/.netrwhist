@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/micheal/documents/school/2019_fall/cs_260/mysite/polls/templates/polls'
+let g:netrw_dirhist_2='/Users/micheal/documents/school/2019_fall/cs_260/deck/node_modules'

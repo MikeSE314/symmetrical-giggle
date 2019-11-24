@@ -1,0 +1,25 @@
+# Micheal Erickson's ZSHRC
+
+# ALIASES
+alias ip="ifconfig | egrep \"\d{1,3}(\.\d{1,3}){3}\"; curl https://ipinfo.io/ip"
+alias vi=/usr/local/bin/nvim
+alias python=/usr/local/bin/python3
+
+# EXPORTS
+export CLICOLOR='--color=auto'
+export GREP_OPTIONS='--color=auto'
+# PS1='\[\e[32m\]\u@\h:\[\e[34m\]\W\[\e[0m\]$ '
+PS1="%F{6}%n%F{15}:%F{1}%c%F{15}$%f "
+
+# PATH
+export PATH=~/documents/bin:$PATH
+export PATH=/usr/local/opt/ruby/bin:$PATH
+export PATH=/usr/local/mysql/bin:$PATH
+
+# history
+HISTFILE=$HOME/.zsh_history
+setopt APPEND_HISTORY
+HISTSIZE=600
+SAVEHIST=500
+setopt HIST_EXPIRE_DUPS_FIRST
+
