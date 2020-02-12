@@ -1,10 +1,10 @@
-noremap <silent> <expr> <Leader>m (synIDattr(synID(line("."), col("."), 0), "name") =~
+noremap <buffer> <silent> <expr> <Leader>m (synIDattr(synID(line("."), col("."), 0), "name") =~
             \ 'comment\c') ?
             \ ':<S-Left>exe "<S-Right>normal! ^3x"<CR>' :
             \ ':<S-Left>exe "<S-Right>normal! I// \<lt>Esc>^"<CR>'
 
-nnoremap <Leader>af :call OpenAssociated(expand("%" . ":t"))<CR>
-inoremap <Leader>flp for (unsigned int i = 0; i < ; i++) {<Left><Left><Left>
+nnoremap <buffer> <Leader>af :call OpenAssociated(expand("%" . ":t"))<CR>
+inoremap <buffer> <Leader>flp for (unsigned int i = 0; i < ; i++) {<Left><Left><Left>
         \<Left><Left><Left><Left><Left>
 
 function! OpenAssociated(filename)
