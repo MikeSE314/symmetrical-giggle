@@ -1,4 +1,4 @@
-noremap <silent> <expr> <Leader>m (synIDattr(synID(line("."), col("."), 0), "name") =~
+noremap <buffer> <silent> <expr> <Leader>m (synIDattr(synID(line("."), col("."), 0), "name") =~
             \ 'comment\c') ?
             \ ':<S-Left>exe "<S-Right>normal! ^3x"<CR>' :
             \ ':<S-Left>exe "<S-Right>normal! I// \<lt>Esc>^"<CR>'
@@ -10,8 +10,8 @@ noremap <silent> <expr> <Leader>m (synIDattr(synID(line("."), col("."), 0), "nam
 highlight javaClassdef ctermfg=9
 highlight javaType ctermfg=6
 
-nnoremap <Leader>af :call OpenAssociatedJava(expand("%" . ":t"))<CR>
-nnoremap <Leader>b :wa \|make -d bin *.java<CR>
+nnoremap <buffer> <Leader>af :call OpenAssociatedJava(expand("%" . ":t"))<CR>
+nnoremap <buffer> <Leader>b :wa \|make -d bin *.java<CR>
 
 function! OpenAssociatedJava(filename)
     let s = split(a:filename, "[.]")
